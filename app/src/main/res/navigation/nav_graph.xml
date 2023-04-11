@@ -3,26 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MovieListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/MovieListFragment"
         android:name="com.ltu.m7019e.v23.themoviedb.MovieListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_movie_list">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_MovieListFragment_to_MovieDetailsFragment"
+            app:destination="@id/MovieDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.ltu.m7019e.v23.themoviedb.SecondFragment"
+        android:id="@+id/MovieDetailsFragment"
+        android:name="com.ltu.m7019e.v23.themoviedb.MovieDetailsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_MovieDetailsFragment_to_MovieListFragment"
+            app:destination="@id/MovieListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.ltu.m7019e.v23.themoviedb.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" />
 </navigation>

@@ -9,7 +9,7 @@ fun bindPosterImage(imgView: ImageView, imgUrl:String) {
     imgUrl.let { posterPath ->
         Glide
             .with(imgView)
-            .load(Contants.POSTER_IMAGE_BASE_URL + Contants.POSTER_IMAGE_WIDTH + posterPath)
+            .load(Constants.POSTER_IMAGE_BASE_URL + Constants.POSTER_IMAGE_WIDTH + posterPath)
             .into(imgView);
     }
 }
