@@ -22,5 +22,9 @@
             tools:context=".MovieListFragment">
 
         </LinearLayout>
+
+
+
     </ScrollView>
+
 </layout>

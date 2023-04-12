@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="movie"
             type="com.ltu.m7019e.v23.themoviedb.model.Movie" />
@@ -59,7 +58,7 @@
 
             <TextView
                 android:id="@+id/movie_overview"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="4"
                 android:paddingLeft="4dp"
@@ -69,10 +68,13 @@
                 app:layout_constraintBottom_toBottomOf="@+id/movie_poster"
                 app:layout_constraintStart_toEndOf="@+id/movie_poster"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintWidth_default="wrap"
+                app:layout_constrainedWidth="true"
                 tools:text="This is a test text test text text text text text text text text text text text" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+
 </layout>

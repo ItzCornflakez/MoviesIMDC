@@ -13,19 +13,35 @@
         <action
             android:id="@+id/action_MovieListFragment_to_MovieDetailsFragment"
             app:destination="@id/MovieDetailsFragment" />
+        <action
+            android:id="@+id/action_MovieListFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
     </fragment>
     <fragment
         android:id="@+id/MovieDetailsFragment"
-        android:name="com.ltu.m7019e.v23.themoviedb.MovieDetailsFragment"
+        android:name="com.ltu.m7019e.v23.themoviedb.MovieDetailFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_movie_detail">
         <action
             android:id="@+id/action_MovieDetailsFragment_to_MovieListFragment"
             app:destination="@id/MovieListFragment" />
+        <action
+            android:id="@+id/action_MovieDetailsFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
+        <argument
+            android:name="movie"
+            app:argType="com.ltu.m7019e.v23.themoviedb.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/thirdFragment"
         android:name="com.ltu.m7019e.v23.themoviedb.ThirdFragment"
         android:label="fragment_third"
-        tools:layout="@layout/fragment_third" />
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/action_thirdFragment_to_MovieDetailsFragment"
+            app:destination="@id/MovieDetailsFragment" />
+        <action
+            android:id="@+id/action_thirdFragment_to_MovieListFragment3"
+            app:destination="@id/MovieListFragment" />
+    </fragment>
 </navigation>
