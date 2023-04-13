@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_MovieListFragment_to_MovieDetailsFragment"
             app:destination="@id/MovieDetailsFragment" />
-        <action
-            android:id="@+id/action_MovieListFragment_to_thirdFragment"
-            app:destination="@id/thirdFragment" />
     </fragment>
     <fragment
         android:id="@+id/MovieDetailsFragment"
@@ -41,7 +38,7 @@
             android:id="@+id/action_thirdFragment_to_MovieDetailsFragment"
             app:destination="@id/MovieDetailsFragment" />
         <action
-            android:id="@+id/action_thirdFragment_to_MovieListFragment3"
+            android:id="@+id/action_thirdFragment_to_MovieListFragment"
             app:destination="@id/MovieListFragment" />
     </fragment>
 </navigation>

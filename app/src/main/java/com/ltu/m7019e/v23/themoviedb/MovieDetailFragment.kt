@@ -30,7 +30,6 @@ class MovieDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -47,16 +46,21 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backToMovieList.setOnClickListener(){
+        //Bind buttons for navigation
+        binding.toMovieListBtn.setOnClickListener(){
             findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailsFragmentToMovieListFragment())
+        }
+        binding.toThirdFragmentBtn.setOnClickListener(){
+            findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment())
         }
 
         //Created a recycler view for the genres
         recyclerView = binding.recycleViewGenres
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = GenreAdapter(movie.genres)
 
-         binding.urlLink.setOnClickListener(){
+        //Create explicit intent with an url
+        binding.urlLink.setOnClickListener(){
             val queryUrl: Uri = Uri.parse("${movie.URL_link}")
             val intent = Intent(Intent.ACTION_VIEW, queryUrl)
             context?.startActivity(intent)

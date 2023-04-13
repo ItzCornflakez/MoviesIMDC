@@ -28,8 +28,11 @@ class GenreAdapter(private val genres: MutableList<String>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
         val item = genres.get(position)
-        holder.text.text = item.toString()
-
+        if(position == genres.size - 1){
+            holder.text.text = item.toString()
+        }else{
+            holder.text.text = item.toString() + ", "
+        }
     }
 
     override fun getItemCount(): Int {
