@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.database.MovieDetails
 import com.ltu.m7019e.v23.themoviedb.database.Movies
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
 import com.ltu.m7019e.v23.themoviedb.databinding.MovieListItemBinding
@@ -45,11 +46,11 @@ class MovieListFragment : Fragment() {
                 val movieListItemBinding: MovieListItemBinding =
                     DataBindingUtil.inflate(inflater, R.layout.movie_list_item, container, false);
                 movieListItemBinding.movie = movie
-
+                val movieDetail = viewModel.movieDetailList.value.find{ it.contains(movie.id)}
                 movieListItemBinding.movieCard.setOnClickListener {
                     val action =
                         MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(
-                            movie
+                            movie)
                         )
                     findNavController().navigate(action)
                 }

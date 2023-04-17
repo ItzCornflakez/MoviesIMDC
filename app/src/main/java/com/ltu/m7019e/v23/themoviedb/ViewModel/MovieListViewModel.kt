@@ -4,8 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide.init
+import com.ltu.m7019e.v23.themoviedb.database.MovieDetails
 import com.ltu.m7019e.v23.themoviedb.database.Movies
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 
 class MovieListViewModel(application: Application) :AndroidViewModel(application) {
     private val _movieList = MutableLiveData<List<Movie>>()
@@ -14,8 +17,13 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
             return _movieList
         }
 
-
+    private val _movieDetailList = MutableLiveData<List<MovieDetail>>()
+    val movieDetailList: LiveData<List<MovieDetail>>
+        get() {
+            return _movieDetailList
+        }
     init {
         _movieList.postValue(Movies().list)
+        _movieDetailList.postValue((MovieDetails().list))
     }
 }
