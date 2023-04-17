@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
+import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
 import com.ltu.m7019e.v23.themoviedb.utils.GenreAdapter
 
 /**
@@ -24,6 +26,7 @@ class MovieDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var movie: Movie
+    private lateinit var movieDetail: MovieDetail
 
     private lateinit var recyclerView: RecyclerView
 
@@ -39,6 +42,9 @@ class MovieDetailFragment : Fragment() {
         _binding = FragmentMovieDetailBinding.inflate(inflater)
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
+
+        movieDetail = MovieDetailFragmentArgs.fromBundle(requireArguments()).movieDetail
+        binding.movieDetail = movieDetail
 
         return binding.root
     }
@@ -57,11 +63,16 @@ class MovieDetailFragment : Fragment() {
         //Created a recycler view for the genres
         recyclerView = binding.recycleViewGenres
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = GenreAdapter(movie.genres)
+        recyclerView.adapter = GenreAdapter(movieDetail.genres)
 
         //Create explicit intent with an url
         binding.urlLink.setOnClickListener(){
-            val queryUrl: Uri = Uri.parse("${movie.URL_link}")
+            val queryUrl: Uri = Uri.parse("${movieDetail.URL_link}")
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+            context?.startActivity(intent)
+        }
+        binding.imdbLink.setOnClickListener(){
+            val queryUrl: Uri = Uri.parse(IMDB_BASE_URL + "${movieDetail.imdb_id}")
             val intent = Intent(Intent.ACTION_VIEW, queryUrl)
             context?.startActivity(intent)
         }

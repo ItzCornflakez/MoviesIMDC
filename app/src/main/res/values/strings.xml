@@ -10,6 +10,7 @@
 
     <string name="genre_text">Genres:</string>
 
+    <string name="imdb_link_base_url">https://www.imdb.com/title/</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="welcome_third_fragment">Welcome to the third fragment!</string>

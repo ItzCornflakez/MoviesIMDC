@@ -17,13 +17,7 @@ class MovieListViewModel(application: Application) :AndroidViewModel(application
             return _movieList
         }
 
-    private val _movieDetailList = MutableLiveData<List<MovieDetail>>()
-    val movieDetailList: LiveData<List<MovieDetail>>
-        get() {
-            return _movieDetailList
-        }
     init {
         _movieList.postValue(Movies().list)
-        _movieDetailList.postValue((MovieDetails().list))
     }
 }

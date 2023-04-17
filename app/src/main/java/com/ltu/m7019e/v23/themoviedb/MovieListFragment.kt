@@ -15,6 +15,8 @@ import com.ltu.m7019e.v23.themoviedb.database.MovieDetails
 import com.ltu.m7019e.v23.themoviedb.database.Movies
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
 import com.ltu.m7019e.v23.themoviedb.databinding.MovieListItemBinding
+import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -34,6 +36,8 @@ class MovieListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater)
 
+        val movieDetailList = MovieDetails().list
+
         val application = requireNotNull(this.activity).application
 
         viewModelFactory = MovieListViewModelFactory(application)
@@ -46,12 +50,10 @@ class MovieListFragment : Fragment() {
                 val movieListItemBinding: MovieListItemBinding =
                     DataBindingUtil.inflate(inflater, R.layout.movie_list_item, container, false);
                 movieListItemBinding.movie = movie
-                val movieDetail = viewModel.movieDetailList.value.find{ it.contains(movie.id)}
+                val movieDetail = movieDetailList.find { it.id == movie.id }!!
                 movieListItemBinding.movieCard.setOnClickListener {
                     val action =
-                        MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(
-                            movie)
-                        )
+                        MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie, movieDetail)
                     findNavController().navigate(action)
                 }
                 binding.movieListLl.addView(movieListItemBinding.root)

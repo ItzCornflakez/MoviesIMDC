@@ -9,6 +9,9 @@
         <variable
             name="movie"
             type="com.ltu.m7019e.v23.themoviedb.model.Movie" />
+        <variable
+            name="movieDetail"
+            type="com.ltu.m7019e.v23.themoviedb.model.MovieDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,12 +88,23 @@
             android:id="@+id/url_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{movie.URL_link}"
+            android:text="@{movieDetail.URL_link}"
             android:textColor="@color/teal_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycle_view_genres" />
+
+        <TextView
+            android:id="@+id/imdb_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/imdb_link_base_url + movieDetail.imdb_id}"
+            android:textColor="@color/teal_700"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/url_link" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
