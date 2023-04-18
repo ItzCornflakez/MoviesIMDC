@@ -32,16 +32,6 @@
 
 
         <Button
-            android:id="@+id/to_movie_list_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/go_movie_list_fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/to_third_fragment_btn"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
             android:id="@+id/to_third_fragment_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +39,7 @@
             android:text="@string/go_third_fragment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/to_movie_list_btn" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/movie_detail_title"

@@ -3,7 +3,6 @@ package com.ltu.m7019e.v23.themoviedb
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
-import com.ltu.m7019e.v23.themoviedb.utils.GenreAdapter
+import com.ltu.m7019e.v23.themoviedb.adapter.GenreAdapter
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -52,12 +51,10 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Bind buttons for navigation
-        binding.toMovieListBtn.setOnClickListener(){
-            findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailsFragmentToMovieListFragment())
-        }
+
         binding.toThirdFragmentBtn.setOnClickListener(){
-            findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment())
+            val action = MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment(movie, movieDetail)
+            findNavController().navigate(action)
         }
 
         //Created a recycler view for the genres

@@ -1,6 +1,5 @@
-package com.ltu.m7019e.v23.themoviedb.utils
+package com.ltu.m7019e.v23.themoviedb.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
