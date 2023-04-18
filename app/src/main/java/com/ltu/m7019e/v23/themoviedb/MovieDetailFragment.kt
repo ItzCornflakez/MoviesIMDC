@@ -29,6 +29,7 @@ class MovieDetailFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
+    private var test  = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
