@@ -8,7 +8,7 @@ class Movies {
     init {
         list.add(
             Movie(
-                527774,
+                1,
                 "Raya and the Last Dragon",
                 "/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
                 "/rcUcYzGGicDvhDs58uM44tJKB9F.jpg",
@@ -20,7 +20,7 @@ class Movies {
         )
         list.add(
             Movie(
-                793723,
+                2,
                 "Sentinelle",
                 "/fFRq98cW9lTo6di2o4lK1qUAWaN.jpg",
                 "/eTgQlyIQH0nA5BsmYpvCzSPAorg.jpg",
@@ -30,8 +30,7 @@ class Movies {
                 )
         )
         list.add(
-            Movie(
-                791373,
+            Movie(3,
                 "Zack Snyder's Justice League",
                 "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
                 "/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg",
@@ -41,8 +40,7 @@ class Movies {
             )
         )
         list.add(
-            Movie(
-                587807,
+            Movie(4,
                 "Tom & Jerry",
                 "/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
                 "/9ns9463dwOeo1CK1JU2wirL5Yi1.jpg",
@@ -52,8 +50,7 @@ class Movies {
             )
         )
         list.add(
-            Movie(
-                587996,
+            Movie(5,
                 "Below Zero",
                 "/dWSnsAGTfc8U27bWsy2RfwZs0Bs.jpg",
                 "/6TPZSJ06OEXeelx1U1VIAt0j9Ry.jpg",
@@ -64,7 +61,7 @@ class Movies {
         )
         list.add(
             Movie(
-                527774,
+                6,
                 "Raya and the Last Dragon",
                 "/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
                 "/rcUcYzGGicDvhDs58uM44tJKB9F.jpg",
@@ -76,7 +73,7 @@ class Movies {
         )
         list.add(
             Movie(
-                793723,
+                7,
                 "Sentinelle",
                 "/fFRq98cW9lTo6di2o4lK1qUAWaN.jpg",
                 "/eTgQlyIQH0nA5BsmYpvCzSPAorg.jpg",
@@ -87,7 +84,7 @@ class Movies {
         )
         list.add(
             Movie(
-                791373,
+                8,
                 "Zack Snyder's Justice League",
                 "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
                 "/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg",
@@ -98,7 +95,7 @@ class Movies {
         )
         list.add(
             Movie(
-                587807,
+                9,
                 "Tom & Jerry",
                 "/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
                 "/9ns9463dwOeo1CK1JU2wirL5Yi1.jpg",
@@ -109,7 +106,7 @@ class Movies {
         )
         list.add(
             Movie(
-                587996,
+                10,
                 "Below Zero",
                 "/dWSnsAGTfc8U27bWsy2RfwZs0Bs.jpg",
                 "/6TPZSJ06OEXeelx1U1VIAt0j9Ry.jpg",

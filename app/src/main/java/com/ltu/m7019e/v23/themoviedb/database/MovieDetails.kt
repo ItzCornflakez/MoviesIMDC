@@ -10,7 +10,7 @@ class MovieDetails {
     init {
         list.add(
             MovieDetail(
-                527774,
+                1,
                 listOf("Animation", "Family", "Fantasy", "Action", "Adventure") as MutableList<String>,
                 "https://movies.disney.com/raya-and-the-last-dragon",
                 "tt5109280"
@@ -20,7 +20,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                793723,
+                2,
                 listOf("Thriller", "Action", "Drama") as MutableList<String>,
                 "https://www.netflix.com/title/81218770",
                 "tt11734264"
@@ -28,7 +28,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                791373,
+                3,
                 listOf("Action", "Adventure", "Fantasy", "Science Fiction") as MutableList<String>,
                 "https://www.hbomax.com/zacksnydersjusticeleague",
                 "tt12361974"
@@ -36,7 +36,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                587807,
+                4,
                 listOf("Comedy", "Family", "Animation") as MutableList<String>,
                 "https://www.tomandjerrymovie.com",
                 "tt1361336"
@@ -44,7 +44,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                587996,
+                5,
                 listOf("Action", "Crime", "Thriller") as MutableList<String>,
                 "https://www.netflix.com/title/81038588",
                 "tt9845564"
@@ -52,7 +52,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                527774,
+                6,
                 listOf("Animation", "Family", "Fantasy", "Action", "Adventure") as MutableList<String>,
                 "https://movies.disney.com/raya-and-the-last-dragon",
                 "tt5109280"
@@ -61,7 +61,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                793723,
+                7,
                 listOf("Thriller", "Action", "Drama") as MutableList<String>,
                 "https://www.netflix.com/title/81218770",
                 "tt11734264"
@@ -69,7 +69,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                791373,
+                8,
                 listOf("Action", "Adventure", "Fantasy", "Science Fiction") as MutableList<String>,
                 "https://www.hbomax.com/zacksnydersjusticeleague",
                 "tt12361974"
@@ -77,7 +77,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                587807,
+                9,
                 listOf("Comedy", "Family", "Animation") as MutableList<String>,
                 "https://www.tomandjerrymovie.com",
                 "tt1361336"
@@ -85,7 +85,7 @@ class MovieDetails {
         )
         list.add(
             MovieDetail(
-                587996,
+                10,
                 listOf("Action", "Crime", "Thriller") as MutableList<String>,
                 "https://www.netflix.com/title/81038588",
                 "tt9845564"

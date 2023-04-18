@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.database.MovieDetails
 import com.ltu.m7019e.v23.themoviedb.database.Movies
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
@@ -43,21 +45,29 @@ class MovieListFragment : Fragment() {
         viewModelFactory = MovieListViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
 
+        val movieListAdapter = MovieListAdapter(
+            MovieListClickListener { movie ->
+                viewModel.onMovieListItemClicked(movie)
+            }
+        )
+
+        binding.movieListRv.adapter = movieListAdapter
+
         viewModel.movieList.observe(
             viewLifecycleOwner
         ) { movieList ->
-            movieList.forEach { movie ->
-                val movieListItemBinding: MovieListItemBinding =
-                    DataBindingUtil.inflate(inflater, R.layout.movie_list_item, container, false);
-                movieListItemBinding.movie = movie
-                val movieDetail = movieDetailList.find { it.id == movie.id }!!
-                movieListItemBinding.movieCard.setOnClickListener {
-                    val action =
-                        MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie, movieDetail)
-                    findNavController().navigate(action)
-                }
-                binding.movieListLl.addView(movieListItemBinding.root)
+            movieList?.let {
+                movieListAdapter.submitList(movieList)
             }
+        }
+
+        viewModel.navigateToMovieDetail.observe(viewLifecycleOwner){movie ->
+            movie?.let {
+                val movieDetail = movieDetailList.find { it.id == movie.id }!!
+                this.findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie, movieDetail))
+                viewModel.onMovieDetailNavigated()
+            }
+
         }
 
         return binding.root
