@@ -1,14 +1,18 @@
 package com.ltu.m7019e.v23.themoviedb
 
 import android.os.Bundle
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
@@ -30,6 +34,7 @@ class MovieListFragment : Fragment() {
 
     private var _binding: FragmentMovieListBinding? = null;
     private val binding get() = _binding!!
+    private var isLinearLayoutManager = true
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -76,5 +81,46 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_movie_list, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.action_switch_layout -> {
+                        isLinearLayoutManager = !isLinearLayoutManager
+                        chooseLayout()
+                        setIcon(menuItem)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun chooseLayout() {
+        when (isLinearLayoutManager) {
+            true -> {
+                binding.movieListRv.layoutManager = LinearLayoutManager(context)
+            }
+            false -> {
+                binding.movieListRv.layoutManager = GridLayoutManager(context, 2)
+            }
+        }
+    }
+
+    private fun setIcon(menuItem: MenuItem?) {
+        if (menuItem == null)
+            return
+
+        menuItem.icon =
+            if (isLinearLayoutManager)
+                ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_grid_layout)
+            else ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_linear_layout)
     }
 }
