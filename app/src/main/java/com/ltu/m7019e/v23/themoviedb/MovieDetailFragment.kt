@@ -15,6 +15,8 @@ import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
 import com.ltu.m7019e.v23.themoviedb.adapter.GenreAdapter
+import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
+import com.ltu.m7019e.v23.themoviedb.network.TMDBApiService
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -41,9 +43,6 @@ class MovieDetailFragment : Fragment() {
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
 
-        movieDetail = MovieDetailFragmentArgs.fromBundle(requireArguments()).movieDetail
-        binding.movieDetail = movieDetail
-
         return binding.root
     }
 
@@ -52,11 +51,12 @@ class MovieDetailFragment : Fragment() {
 
 
         binding.toThirdFragmentBtn.setOnClickListener(){
-            val action = MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment(movie, movieDetail)
+            val action = MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment(movie)
             findNavController().navigate(action)
         }
 
         //Created a recycler view for the genres
+
         recyclerView = binding.recycleViewGenres
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = GenreAdapter(movieDetail.genres)

@@ -5,11 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
-import com.ltu.m7019e.v23.themoviedb.database.MovieDetails
-import com.ltu.m7019e.v23.themoviedb.database.Movies
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
 

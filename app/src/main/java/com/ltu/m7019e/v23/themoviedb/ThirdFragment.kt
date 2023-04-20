@@ -34,7 +34,6 @@ class ThirdFragment : Fragment() {
         _binding = FragmentThirdBinding.inflate(inflater)
 
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
-        movieDetail = MovieDetailFragmentArgs.fromBundle(requireArguments()).movieDetail
 
         // Inflate the layout for this fragment
         return binding.root
@@ -44,7 +43,7 @@ class ThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toMovieDetailBtn.setOnClickListener(){
-            val action = ThirdFragmentDirections.actionThirdFragmentToMovieDetailsFragment(movie, movieDetail)
+            val action = ThirdFragmentDirections.actionThirdFragmentToMovieDetailsFragment(movie)
             findNavController().navigate(action)
         }
     }

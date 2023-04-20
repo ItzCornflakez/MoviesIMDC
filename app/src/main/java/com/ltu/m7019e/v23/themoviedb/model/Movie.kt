@@ -16,9 +16,6 @@ data class Movie(
         @Json(name = "poster_path")
         var posterPath: String,
 
-        @Json(name = "backdrop_path")
-        var backdropPath: String,
-
         @Json(name = "release_date")
         var releaseDate: String,
 
