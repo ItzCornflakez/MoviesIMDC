@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.databinding.MovieListItemBinding
+import com.ltu.m7019e.v23.themoviedb.databinding.MovieListItemGridBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 
 class MovieListAdapter(private val movieClickListener: MovieListClickListener) :  ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieListDiffCallback()){
-    class ViewHolder(private var binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private var binding: MovieListItemGridBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie, movieClickListener: MovieListClickListener) {
             binding.movie = movie
@@ -20,7 +21,7 @@ class MovieListAdapter(private val movieClickListener: MovieListClickListener) :
         companion object {
             fun from(parent: ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = MovieListItemBinding.inflate(layoutInflater, parent, false)
+                val binding = MovieListItemGridBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

@@ -34,17 +34,17 @@ class MovieListFragment : Fragment() {
 
     private var _binding: FragmentMovieListBinding? = null;
     private val binding get() = _binding!!
-    private var isLinearLayoutManager = true
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         _binding = FragmentMovieListBinding.inflate(inflater)
 
         val movieDetailList = MovieDetails().list
-
         val application = requireNotNull(this.activity).application
 
         viewModelFactory = MovieListViewModelFactory(application)
@@ -80,47 +80,8 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                menuInflater.inflate(R.menu.menu_movie_list, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.action_switch_layout -> {
-                        isLinearLayoutManager = !isLinearLayoutManager
-                        chooseLayout()
-                        setIcon(menuItem)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.movieListRv.layoutManager = GridLayoutManager(context,3)
     }
 
-    private fun chooseLayout() {
-        when (isLinearLayoutManager) {
-            true -> {
-                binding.movieListRv.layoutManager = LinearLayoutManager(context)
-            }
-            false -> {
-                binding.movieListRv.layoutManager = GridLayoutManager(context, 2)
-            }
-        }
-    }
 
-    private fun setIcon(menuItem: MenuItem?) {
-        if (menuItem == null)
-            return
-
-        menuItem.icon =
-            if (isLinearLayoutManager)
-                ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_grid_layout)
-            else ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_linear_layout)
-    }
 }
