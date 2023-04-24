@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.R
+import com.ltu.m7019e.v23.themoviedb.model.Genre
 
-class GenreAdapter(private val genres: MutableList<String>): RecyclerView.Adapter<GenreAdapter.GenreViewHolder>(){
+class GenreAdapter(private val genres: List<Genre>): RecyclerView.Adapter<GenreAdapter.GenreViewHolder>(){
 
     class GenreViewHolder(val view: View): RecyclerView.ViewHolder(view){
         val text = view.findViewById<TextView>(R.id.genre_item)
@@ -26,7 +27,7 @@ class GenreAdapter(private val genres: MutableList<String>): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
-        val item = genres.get(position)
+        val item = genres.get(position).name
         if(position == genres.size - 1){
             holder.text.text = item.toString()
         }else{

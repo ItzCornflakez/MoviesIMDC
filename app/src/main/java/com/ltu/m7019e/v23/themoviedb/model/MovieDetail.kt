@@ -2,6 +2,7 @@ package com.ltu.m7019e.v23.themoviedb.model
 
 
 import android.os.Parcelable
+import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
@@ -11,7 +12,7 @@ data class MovieDetail (
     var id: Int,
 
     @Json(name = "genres")
-    var genres: MutableList<String>,
+    var genres: List<Genre>,
 
     @Json(name = "homepage")
     var URL_link: String,

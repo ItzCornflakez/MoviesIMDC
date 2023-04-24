@@ -7,9 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieDetailViewModel
+import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieDetailViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
+import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
@@ -28,7 +33,8 @@ class MovieDetailFragment : Fragment() {
 
     private lateinit var movie: Movie
     private lateinit var movieDetail: MovieDetail
-
+    private lateinit var viewModel: MovieDetailViewModel
+    private lateinit var viewModelFactory: MovieDetailViewModelFactory
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +48,14 @@ class MovieDetailFragment : Fragment() {
         _binding = FragmentMovieDetailBinding.inflate(inflater)
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
+
+        val application = requireNotNull(this.activity).application
+
+        viewModelFactory = MovieDetailViewModelFactory(application, movie)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
+
+
+        movieDetail = viewModel.movieDetail.value!!
 
         return binding.root
     }

@@ -35,7 +35,7 @@ class MovieListFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         viewModelFactory = MovieListViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
         val movieListAdapter = MovieListAdapter(
             MovieListClickListener { movie ->
