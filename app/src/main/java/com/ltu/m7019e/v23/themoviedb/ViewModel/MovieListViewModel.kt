@@ -1,15 +1,26 @@
 package com.ltu.m7019e.v23.themoviedb.ViewModel
 
 import android.app.Application
+import android.provider.ContactsContract.Data
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
+    val dataFetchStatus: LiveData<DataFetchStatus>
+        get() {
+            return _dataFetchStatus
+        }
+
+
     private val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>>
         get() {
@@ -23,17 +34,36 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
 
     init {
         getPopularMovies()
+        _dataFetchStatus.value = DataFetchStatus.LOADING
     }
 
     fun getPopularMovies(){
         viewModelScope.launch {
-            _movieList.value = TMDBApi.movieListRetrofitService.getPopularMovies().results
+            try {
+                val movieResponse: MovieResponse = TMDBApi.movieListRetrofitService.getPopularMovies()
+                _movieList.value = movieResponse.results
+                _dataFetchStatus.value = DataFetchStatus.DONE
+            } catch (e : java.lang.Exception) {
+                _dataFetchStatus.value = DataFetchStatus.ERROR
+                _movieList.value = arrayListOf()
+
+            }
+
         }
     }
 
     fun getTopRatedMovies(){
         viewModelScope.launch {
-            _movieList.value = TMDBApi.movieListRetrofitService.getTopRatedMovies().results
+            try {
+                val movieResponse: MovieResponse = TMDBApi.movieListRetrofitService.getTopRatedMovies()
+                _movieList.value = movieResponse.results
+                _dataFetchStatus.value = DataFetchStatus.DONE
+            } catch (e : java.lang.Exception) {
+                _dataFetchStatus.value = DataFetchStatus.ERROR
+                _movieList.value = arrayListOf()
+
+            }
+
         }
     }
 
