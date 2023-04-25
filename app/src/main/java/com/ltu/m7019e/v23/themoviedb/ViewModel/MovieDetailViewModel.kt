@@ -1,12 +1,12 @@
 package com.ltu.m7019e.v23.themoviedb.ViewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
@@ -37,7 +37,7 @@ class MovieDetailViewModel(application: Application, movie: Movie) : AndroidView
                val movieDetail: MovieDetailsResponse = TMDBApi.movieListRetrofitService.getMovieDetails(movieId)
                _movieDetail.value = movieDetail
                _dataFetchStatus.value = DataFetchStatus.DONE
-           } catch (e : java.lang.Exception) {
+           } catch (e : Exception) {
                _dataFetchStatus.value = DataFetchStatus.ERROR
                _movieDetail.value = null
 

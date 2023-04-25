@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentThirdBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 
 
 /**
@@ -21,7 +20,6 @@ class ThirdFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var movie: Movie
-    private lateinit var movieDetail: MovieDetail
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

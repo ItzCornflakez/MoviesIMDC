@@ -17,7 +17,6 @@ import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
 import com.ltu.m7019e.v23.themoviedb.adapter.GenreAdapter
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -48,7 +47,7 @@ class MovieDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMovieDetailBinding.inflate(inflater)
+        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
 
@@ -60,6 +59,7 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             it?.let {
+                binding.movieDetail = it
                 movieDetail = it
             }
         }
@@ -90,7 +90,6 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.toThirdFragmentBtn.setOnClickListener() {
             val action =
