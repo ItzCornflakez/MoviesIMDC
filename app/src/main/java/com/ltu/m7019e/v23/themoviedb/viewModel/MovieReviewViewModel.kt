@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 import com.ltu.m7019e.v23.themoviedb.network.MovieReviewResponse
@@ -18,6 +19,12 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
     val dataFetchStatus: LiveData<DataFetchStatus>
         get() {
             return _dataFetchStatus
+        }
+
+    private val _movieReviewList = MutableLiveData<List<Review>>()
+    val movieReviewList: LiveData<List<Review>>
+        get() {
+            return _movieReviewList
         }
 
     private val _movieReview = MutableLiveData<MovieReviewResponse?>()
@@ -34,11 +41,11 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
         viewModelScope.launch {
             try {
                 val movieReview: MovieReviewResponse = TMDBApi.movieListRetrofitService.getMovieReview(movieId)
-                _movieReview.value = movieReview
+                _movieReviewList.value = movieReview.results
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e : Exception) {
                 _dataFetchStatus.value = DataFetchStatus.ERROR
-                _movieReview.value = null
+                _movieReviewList.value = listOf()
 
             }
 

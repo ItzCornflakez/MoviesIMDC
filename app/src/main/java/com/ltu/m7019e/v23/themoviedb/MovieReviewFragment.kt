@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieReviewAdapter
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieReviewBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel
@@ -26,6 +30,7 @@ class MovieReviewFragment : Fragment() {
     private lateinit var viewModel: MovieReviewViewModel
     private lateinit var viewModelFactory: MovieReviewViewModelFactory
     private lateinit var movie: Movie
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,19 @@ class MovieReviewFragment : Fragment() {
 
         viewModelFactory = MovieReviewViewModelFactory(application, movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieReviewViewModel::class.java]
+
+        val movieReviewAdapter = MovieReviewAdapter()
+
+        binding.reviewsRecyclerView.adapter = movieReviewAdapter
+
+        viewModel.movieReviewList.observe(
+            viewLifecycleOwner
+        ) { movieReviewList ->
+            movieReviewList?.let {
+                movieReviewAdapter.submitList(movieReviewList)
+            }
+        }
+
 
         // Inflate the layout for this fragment
         return binding.root
