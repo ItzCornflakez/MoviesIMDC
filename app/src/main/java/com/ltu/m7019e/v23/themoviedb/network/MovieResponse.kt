@@ -18,4 +18,5 @@ class MovieResponse {
     @Json(name = "total_results")
     var total_results: Int = 0
 
+
 }

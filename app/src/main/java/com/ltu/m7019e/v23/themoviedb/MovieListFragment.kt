@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModel
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding

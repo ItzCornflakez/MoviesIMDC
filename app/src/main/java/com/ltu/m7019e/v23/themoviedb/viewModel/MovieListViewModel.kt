@@ -1,8 +1,6 @@
-package com.ltu.m7019e.v23.themoviedb.ViewModel
+package com.ltu.m7019e.v23.themoviedb.viewModel
 
 import android.app.Application
-import android.provider.ContactsContract.Data
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

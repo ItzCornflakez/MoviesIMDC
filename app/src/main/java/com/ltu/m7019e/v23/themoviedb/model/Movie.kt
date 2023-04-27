@@ -20,6 +20,9 @@ data class Movie(
         var releaseDate: String,
 
         @Json(name = "overview")
-        var overview: String
+        var overview: String,
+
+        @Json(name = "backdrop_path")
+        var backdropPath: String = ""
 
 ) : Parcelable

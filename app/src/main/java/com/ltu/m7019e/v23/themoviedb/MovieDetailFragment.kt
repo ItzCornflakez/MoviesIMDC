@@ -9,20 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieDetailViewModel
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieDetailViewModelFactory
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModel
-import com.ltu.m7019e.v23.themoviedb.ViewModel.MovieListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
-import com.ltu.m7019e.v23.themoviedb.adapter.GenreAdapter
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
-import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
-import com.ltu.m7019e.v23.themoviedb.network.TMDBApiService
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -61,6 +55,34 @@ class MovieDetailFragment : Fragment() {
             it?.let {
                 binding.movieDetail = it
                 movieDetail = it
+                var genreText = "Genre: "
+                var isFirst = true
+                movieDetail.genres.forEach {
+                    it?.let {
+                        if(isFirst){
+                            genreText += it.name
+                            isFirst = false
+                        } else {
+                            genreText += ", " + it.name
+                        }
+                    }
+                }
+                binding.genreText.setText(genreText)
+
+
+                //Create explicit intent with an url
+                binding.urlLink.setOnClickListener() {
+                    val queryUrl: Uri = Uri.parse(movieDetail.homepage)
+                    val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+                    context?.startActivity(intent)
+                }
+                binding.imdbLink.setOnClickListener() {
+                    val queryUrl: Uri = Uri.parse(IMDB_BASE_URL + movieDetail.imdb_id)
+                    val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+                    context?.startActivity(intent)
+                }
+
+
             }
         }
 
@@ -85,6 +107,9 @@ class MovieDetailFragment : Fragment() {
             }
         }
 
+
+
+
         return binding.root
     }
 
@@ -99,22 +124,7 @@ class MovieDetailFragment : Fragment() {
 
         //Created a recycler view for the genres
 
-        recyclerView = binding.recycleViewGenres
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = GenreAdapter(movieDetail.genres)
 
-        //Create explicit intent with an url
-        binding.urlLink.setOnClickListener() {
-            val queryUrl: Uri = Uri.parse(movieDetail.homepage)
-            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
-            context?.startActivity(intent)
-        }
-        binding.imdbLink.setOnClickListener() {
-            val queryUrl: Uri = Uri.parse(IMDB_BASE_URL + movieDetail.imdb_id)
-            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
-            context?.startActivity(intent)
-        }
     }
 
 }

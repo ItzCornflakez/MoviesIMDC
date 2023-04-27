@@ -34,7 +34,7 @@
             android:id="@+id/movie_detail_backdrop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:backdropImageUrl="@{movieDetail.backdropPath}"
+            app:backdropImageUrl="@{movie.backdropPath}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -67,22 +67,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
-            android:text="@string/genre_text"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_detail_title"
             />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycle_view_genres"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:paddingLeft="4dp"
-            android:paddingTop="6dp"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintStart_toEndOf="@id/genre_text"
-            app:layout_constraintTop_toBottomOf="@+id/movie_detail_title" />
 
         <TextView
             android:id="@+id/url_link"
@@ -93,7 +81,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycle_view_genres" />
+            app:layout_constraintTop_toBottomOf="@+id/genre_text" />
 
         <TextView
             android:id="@+id/imdb_link"
