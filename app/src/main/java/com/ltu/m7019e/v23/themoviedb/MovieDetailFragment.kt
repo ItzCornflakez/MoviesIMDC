@@ -30,7 +30,6 @@ class MovieDetailFragment : Fragment() {
     private lateinit var movieDetail: MovieDetailsResponse
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var viewModelFactory: MovieDetailViewModelFactory
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,9 +115,9 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toThirdFragmentBtn.setOnClickListener() {
+        binding.toMovieReviewFragmentBtn.setOnClickListener() {
             val action =
-                MovieDetailFragmentDirections.actionMovieDetailsFragmentToThirdFragment(movie)
+                MovieDetailFragmentDirections.actionMovieDetailsFragmentToMovieReviewFragment(movie)
             findNavController().navigate(action)
         }
 

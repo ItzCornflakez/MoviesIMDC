@@ -42,7 +42,7 @@
 
 
         <Button
-            android:id="@+id/to_third_fragment_btn"
+            android:id="@+id/to_movie_review_fragment_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

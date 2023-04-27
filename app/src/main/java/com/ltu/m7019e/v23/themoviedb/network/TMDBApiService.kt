@@ -60,11 +60,17 @@ interface TMDBApiService {
         apiKey: String = Constants.API_KEY
     ): MovieResponse
 
-    @GET("{movie_id}?")
+    @GET("{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): MovieDetailsResponse
+
+    @GET("{movie_id}/reviews")
+    suspend fun getMovieReview(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ): MovieReviewResponse
 
 }
 
