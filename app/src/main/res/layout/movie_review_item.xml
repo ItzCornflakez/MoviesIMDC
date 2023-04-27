@@ -31,6 +31,10 @@
                 android:text="@{review.author}"
                 android:textSize="18sp"
                 android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxLength="11"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="ABC">

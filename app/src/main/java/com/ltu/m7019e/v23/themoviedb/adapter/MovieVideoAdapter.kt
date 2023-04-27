@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.databinding.MovieVideoItemBinding
 import com.ltu.m7019e.v23.themoviedb.model.Video
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
 class MovieVideoAdapter() :  ListAdapter<Video, MovieVideoAdapter.ViewHolder>(MovieVideoDiffCallback()){
     class ViewHolder(private var binding: MovieVideoItemBinding) : RecyclerView.ViewHolder(binding.root) {

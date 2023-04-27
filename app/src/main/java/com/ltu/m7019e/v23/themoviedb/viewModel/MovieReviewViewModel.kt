@@ -1,6 +1,5 @@
 package com.ltu.m7019e.v23.themoviedb.viewModel
 
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -9,10 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.model.Video
-import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
-import com.ltu.m7019e.v23.themoviedb.network.MovieReviewResponse
-import com.ltu.m7019e.v23.themoviedb.network.MovieVideoResponse
-import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
+
+
+import com.ltu.m7019e.v23.themoviedb.network.*
 import kotlinx.coroutines.launch
 
 class MovieReviewViewModel(application: Application, movie: Movie) : AndroidViewModel(application) {
@@ -49,7 +47,7 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e : Exception) {
                 _dataFetchStatus.value = DataFetchStatus.ERROR
-                _movieVideoList.value = listOf()
+                _movieReviewList.value = listOf()
             }
         }
     }

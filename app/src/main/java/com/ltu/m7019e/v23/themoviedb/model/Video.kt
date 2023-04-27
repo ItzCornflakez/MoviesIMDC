@@ -9,12 +9,12 @@ import kotlinx.parcelize.Parcelize
 data class Video (
 
     @Json(name = "id")
-    var id: String?,
+    var id: String,
 
     @Json(name = "site")
-    var site: String?,
+    var site: String,
 
     @Json(name = "key")
-    var key: String?
+    var key: String
 
 ) : Parcelable

@@ -1,17 +1,24 @@
 package com.ltu.m7019e.v23.themoviedb
 
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieReviewAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieVideoAdapter
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieReviewBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel
+import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieReviewViewModel
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieReviewViewModelFactory
 
@@ -77,6 +84,7 @@ class MovieReviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.reviewsRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
+        binding.videosRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
 
         binding.toMovieDetailBtn.setOnClickListener(){
             val action = MovieReviewFragmentDirections.actionMovieReviewFragmentToMovieDetailsFragment(movie)
