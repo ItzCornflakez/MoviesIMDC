@@ -1,5 +1,6 @@
 package com.ltu.m7019e.v23.themoviedb.viewModel
 
+
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -7,9 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
+import com.ltu.m7019e.v23.themoviedb.model.Video
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
-import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 import com.ltu.m7019e.v23.themoviedb.network.MovieReviewResponse
+import com.ltu.m7019e.v23.themoviedb.network.MovieVideoResponse
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
 
@@ -27,17 +29,32 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
             return _movieReviewList
         }
 
-    private val _movieReview = MutableLiveData<MovieReviewResponse?>()
-    val movieReview: LiveData<MovieReviewResponse?>
+
+    private val _movieVideoList = MutableLiveData<List<Video>>()
+    val movieVideoList: LiveData<List<Video>>
         get() {
-            return _movieReview
+            return _movieVideoList
         }
 
     init{
-        getMovieReview(movie.id)
+        getMovieReviews(movie.id)
+        getMovieVideos(movie.id)
     }
 
-    fun getMovieReview(movieId: Int){
+    private fun getMovieVideos(movieId: Int) {
+        viewModelScope.launch {
+            try {
+                val movieVideo: MovieVideoResponse = TMDBApi.movieListRetrofitService.getMovieVideos(movieId)
+                _movieVideoList.value = movieVideo.results
+                _dataFetchStatus.value = DataFetchStatus.DONE
+            } catch (e : Exception) {
+                _dataFetchStatus.value = DataFetchStatus.ERROR
+                _movieVideoList.value = listOf()
+            }
+        }
+    }
+
+    fun getMovieReviews(movieId: Int){
         viewModelScope.launch {
             try {
                 val movieReview: MovieReviewResponse = TMDBApi.movieListRetrofitService.getMovieReview(movieId)
@@ -48,7 +65,6 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
                 _movieReviewList.value = listOf()
 
             }
-
         }
 
     }
