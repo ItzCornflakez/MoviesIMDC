@@ -55,7 +55,7 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
     fun getMovieReviews(movieId: Int){
         viewModelScope.launch {
             try {
-                val movieReview: MovieReviewResponse = TMDBApi.movieListRetrofitService.getMovieReview(movieId)
+                val movieReview: MovieReviewResponse = TMDBApi.movieListRetrofitService.getMovieReviews(movieId)
                 _movieReviewList.value = movieReview.results
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e : Exception) {

@@ -34,7 +34,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/videos_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="250dp"
+                android:layout_height="240dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reviews_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="370dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
                 app:layout_constraintBottom_toTopOf="@+id/to_movie_detail_btn"
                 app:layout_constraintEnd_toEndOf="parent"

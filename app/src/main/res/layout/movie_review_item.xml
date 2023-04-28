@@ -13,7 +13,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/movie_review_card"
         android:layout_width="330dp"
-        android:layout_height="190dp"
+        android:layout_height="360dp"
         android:layout_margin="4dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:paddingTop="24dp"
                 android:text="@{review.content}"
-                android:maxLines="8"
+                android:maxLines="16"
                 android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/movie_review_author"

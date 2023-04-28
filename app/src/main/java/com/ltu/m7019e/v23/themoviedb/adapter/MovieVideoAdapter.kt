@@ -1,47 +1,51 @@
 package com.ltu.m7019e.v23.themoviedb.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ltu.m7019e.v23.themoviedb.databinding.MovieVideoItemBinding
+import com.ltu.m7019e.v23.themoviedb.R
 import com.ltu.m7019e.v23.themoviedb.model.Video
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class MovieVideoAdapter() :  ListAdapter<Video, MovieVideoAdapter.ViewHolder>(MovieVideoDiffCallback()){
-    class ViewHolder(private var binding: MovieVideoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class MovieVideoAdapter(private val genres: List<Video>): RecyclerView.Adapter<MovieVideoAdapter.ViewHolder>(){
 
-        fun bind(video: Video) {
-            binding.video = video
-            binding.executePendingBindings()
-        }
-
-        companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = MovieVideoItemBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
-            }
-        }
+    class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
+        val youtubePlayerView: YouTubePlayerView = view.findViewById<YouTubePlayerView>(R.id.youtube_player_view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val layout = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.movie_video_item, parent, false)
+
+        return ViewHolder(layout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-}
+        val item = genres[position]
+        holder.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                // loading the selected video into the YouTube Player
+                youTubePlayer.cueVideo(item.key, 0F)
+            }
 
-class MovieVideoDiffCallback : DiffUtil.ItemCallback<Video>() {
-    override fun areItemsTheSame(oldItem: Video, newItem: Video): Boolean {
-        return oldItem.id == newItem.id
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                // this method is called if video has ended,
+                super.onStateChange(youTubePlayer, state)
+            }
+        })
     }
 
-    override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean {
-        return oldItem == newItem
+    override fun getItemCount(): Int {
+        return genres.size
     }
 
 }

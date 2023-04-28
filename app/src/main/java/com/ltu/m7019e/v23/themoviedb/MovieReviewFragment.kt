@@ -64,17 +64,16 @@ class MovieReviewFragment : Fragment() {
             }
         }
 
-        val movieVideoAdapter = MovieVideoAdapter()
-
-        binding.videosRecyclerView.adapter = movieVideoAdapter
-
         viewModel.movieVideoList.observe(
             viewLifecycleOwner
         ) { movieVideoList ->
             movieVideoList?.let {
-                movieVideoAdapter.submitList(movieVideoList)
+                val recyclerView = binding.videosRecyclerView
+                recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerView.adapter = MovieVideoAdapter(movieVideoList)
             }
         }
+
 
         // Inflate the layout for this fragment
         return binding.root
