@@ -9,11 +9,12 @@ import com.ltu.m7019e.v23.themoviedb.databinding.MovieReviewItemBinding
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.network.MovieReviewResponse
 
-class MovieReviewAdapter() :  ListAdapter<Review, MovieReviewAdapter.ViewHolder>(MovieReviewDiffCallback()){
+class MovieReviewAdapter(private val reviewClickListener: ReviewClickListener) :  ListAdapter<Review, MovieReviewAdapter.ViewHolder>(MovieReviewDiffCallback()){
     class ViewHolder(private var binding: MovieReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(review: Review) {
+        fun bind(review: Review, reviewClickListener: ReviewClickListener) {
             binding.review = review
+            binding.reviewClickListener = reviewClickListener
             binding.executePendingBindings()
         }
 
@@ -31,7 +32,7 @@ class MovieReviewAdapter() :  ListAdapter<Review, MovieReviewAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), reviewClickListener)
     }
 }
 
@@ -43,5 +44,8 @@ class MovieReviewDiffCallback : DiffUtil.ItemCallback<Review>() {
     override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
         return oldItem == newItem
     }
+}
 
+class ReviewClickListener(val clickListener: (review: Review) -> Unit){
+    fun onClick(review: Review) = clickListener(review)
 }

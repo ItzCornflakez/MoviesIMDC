@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.model.Video
@@ -27,11 +28,16 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
             return _movieReviewList
         }
 
-
     private val _movieVideoList = MutableLiveData<List<Video>>()
     val movieVideoList: LiveData<List<Video>>
         get() {
             return _movieVideoList
+        }
+
+    private val _openReviewUrl = MutableLiveData<Review?>()
+    val openReviewUrl: LiveData<Review?>
+        get() {
+            return _openReviewUrl
         }
 
     init{
@@ -43,7 +49,7 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
         viewModelScope.launch {
             try {
                 val movieVideo: MovieVideoResponse = TMDBApi.movieListRetrofitService.getMovieVideos(movieId)
-                _movieVideoList.value = movieVideo.results
+                _movieVideoList.value = movieVideo.results.filter { video: Video -> video.site == "YouTube" } //Filter out non youtube videos
                 _dataFetchStatus.value = DataFetchStatus.DONE
             } catch (e : Exception) {
                 _dataFetchStatus.value = DataFetchStatus.ERROR
@@ -67,9 +73,12 @@ class MovieReviewViewModel(application: Application, movie: Movie) : AndroidView
 
     }
 
+    fun onReviewClicked(review: Review){
+        _openReviewUrl.value = review
+    }
 
-
-
-
+    fun onReviewOpened(){
+        _openReviewUrl.value = null
+    }
 
 }
