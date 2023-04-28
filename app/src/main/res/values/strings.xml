@@ -10,6 +10,12 @@
 
     <string name="genre_text">Genres:</string>
 
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="popular_movies">Popular Movies</string>
+
+    <string name="no_videos_available">No Videos Available</string>
+    <string name="no_reviews_available">No Reviews Available</string>
+
     <string name="imdb_link_base_url">https://www.imdb.com/title/</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

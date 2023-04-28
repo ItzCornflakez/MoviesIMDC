@@ -25,6 +25,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         get() {
             return _movieList
         }
+
     private val _navigateToMovieDetail = MutableLiveData<Movie?>()
     val navigateToMovieDetail: MutableLiveData<Movie?>
         get() {
