@@ -13,6 +13,8 @@ import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModel
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 
@@ -23,6 +25,8 @@ class MovieListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
+
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     private var _binding: FragmentMovieListBinding? = null;
     private val binding get() = _binding!!
@@ -38,7 +42,9 @@ class MovieListFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        viewModelFactory = MovieListViewModelFactory(application)
+        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
+
+        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
         val movieListAdapter = MovieListAdapter(
@@ -116,6 +122,9 @@ class MovieListFragment : Fragment() {
                     }
                     R.id.action_load_top_rated_movies -> {
                         viewModel.getTopRatedMovies()
+                    }
+                    R.id.action_load_saved_movies ->{
+                        viewModel.getSavedMovies()
                     }
                 }
                 return true

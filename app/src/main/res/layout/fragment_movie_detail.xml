@@ -6,12 +6,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        
+        <import type="android.view.View"/>
+        
         <variable
             name="movie"
             type="com.ltu.m7019e.v23.themoviedb.model.Movie" />
         <variable
             name="movieDetail"
             type="com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse" />
+        <variable
+            name="viewModel"
+            type="com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +44,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/shows_the_movie_backdrop_image"/>
 
 
         <Button
@@ -89,10 +96,32 @@
             android:layout_height="wrap_content"
             android:text="@{@string/imdb_link_base_url + movieDetail.imdb_id}"
             android:textColor="@color/teal_700"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/to_movie_review_fragment_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/url_link" />
+
+        <Button
+            android:id="@+id/save_to_database"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:onClick="@{() -> viewModel.onSaveMovieButtonClicked(movie)}"
+            android:visibility="@{viewModel.isFavorite ? View.GONE : View.VISIBLE}"
+            android:text="@string/save_locally"
+            app:layout_constraintBottom_toTopOf="@+id/to_movie_review_fragment_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/remove_from_datanase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/remove_locally"
+            android:onClick="@{() -> viewModel.onRemoveMovieButtonClicked(movie)}"
+            android:visibility="@{viewModel.isFavorite ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/to_movie_review_fragment_btn"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

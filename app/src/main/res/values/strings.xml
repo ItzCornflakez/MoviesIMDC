@@ -12,14 +12,20 @@
 
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="popular_movies">Popular Movies</string>
+    <string name="saved_movies">Saved Movies</string>
 
     <string name="no_videos_available">No Videos Available</string>
     <string name="no_reviews_available">No Reviews Available</string>
+
+    <string name="action_go_back">Go Back</string>
 
     <string name="imdb_link_base_url">https://www.imdb.com/title/</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="welcome_third_fragment">Welcome to the third fragment!</string>
     <string name="action_switch_layout">Switch Layout</string>
+    <string name="shows_the_movie_backdrop_image">Shows the movie backdrop image</string>
+    <string name="save_locally">Save Locally</string>
+    <string name="remove_locally">Remove Locally</string>
 
 </resources>

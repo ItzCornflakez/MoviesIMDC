@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
+import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel
 import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
@@ -25,6 +27,8 @@ class MovieDetailFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailBinding? = null;
     private val binding get() = _binding!!
+
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     private lateinit var movie: Movie
     private lateinit var movieDetail: MovieDetailsResponse
@@ -46,7 +50,9 @@ class MovieDetailFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        viewModelFactory = MovieDetailViewModelFactory(application, movie)
+        movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
+
+        viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
 
 
@@ -108,6 +114,7 @@ class MovieDetailFragment : Fragment() {
 
 
 
+        binding.viewModel = viewModel
 
         return binding.root
     }
