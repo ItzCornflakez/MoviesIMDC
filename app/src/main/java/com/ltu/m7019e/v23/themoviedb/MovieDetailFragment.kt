@@ -48,12 +48,15 @@ class MovieDetailFragment : Fragment() {
         movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
 
+
         val application = requireNotNull(this.activity).application
 
         movieDatabaseDao = MovieDatabase.getInstance(application).movieDatabaseDao
 
         viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
+
+        binding.viewModel = viewModel
 
 
         viewModel.movieDetail.observe(viewLifecycleOwner) {
@@ -111,10 +114,6 @@ class MovieDetailFragment : Fragment() {
                 }
             }
         }
-
-
-
-        binding.viewModel = viewModel
 
         return binding.root
     }

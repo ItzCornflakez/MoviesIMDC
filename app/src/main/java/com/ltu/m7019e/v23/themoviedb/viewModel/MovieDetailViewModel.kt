@@ -33,8 +33,8 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
         }
 
     init{
-        getMovieDetail(movie.id)
         setIsFavorite(movie)
+        getMovieDetail(movie.id)
     }
 
     fun setIsFavorite(movie: Movie){

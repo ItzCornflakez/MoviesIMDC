@@ -31,6 +31,7 @@ class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null;
     private val binding get() = _binding!!
 
+    private var lastSelectedMenuOptions = R.id.action_load_popular_movies
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,17 +119,31 @@ class MovieListFragment : Fragment() {
                 // Handle the menu selection
                 when (menuItem.itemId) {
                     R.id.action_load_popular_movies -> {
+                        lastSelectedMenuOptions = R.id.action_load_popular_movies
                         viewModel.getPopularMovies()
                     }
                     R.id.action_load_top_rated_movies -> {
+                        lastSelectedMenuOptions = R.id.action_load_top_rated_movies
                         viewModel.getTopRatedMovies()
                     }
                     R.id.action_load_saved_movies ->{
+                        lastSelectedMenuOptions = R.id.action_load_saved_movies
                         viewModel.getSavedMovies()
                     }
                 }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        when(lastSelectedMenuOptions){
+            R.id.action_load_saved_movies -> {
+                viewModel.getSavedMovies()
+            }
+        }
+
     }
 }
