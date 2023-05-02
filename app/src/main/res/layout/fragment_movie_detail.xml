@@ -107,19 +107,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:onClick="@{() -> viewModel.onSaveMovieButtonClicked(movie)}"
-            android:visibility="@{viewModel.isFavorite ? View.GONE : View.VISIBLE}"
             android:text="@string/save_locally"
             app:layout_constraintBottom_toTopOf="@+id/to_movie_review_fragment_btn"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/remove_from_datanase"
+            android:id="@+id/remove_from_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/remove_locally"
             android:onClick="@{() -> viewModel.onRemoveMovieButtonClicked(movie)}"
-            android:visibility="@{viewModel.isFavorite ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/to_movie_review_fragment_btn"
             app:layout_constraintEnd_toEndOf="parent" />
 

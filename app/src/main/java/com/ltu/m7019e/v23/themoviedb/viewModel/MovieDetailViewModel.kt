@@ -33,11 +33,11 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
         }
 
     init{
-        setIsFavorite(movie)
+        isFavorite(movie)
         getMovieDetail(movie.id)
     }
 
-    fun setIsFavorite(movie: Movie){
+    fun isFavorite(movie: Movie){
         viewModelScope.launch {
             _isFavorite.value = movieDatabaseDao.isFavorite(movie.id)
         }
@@ -46,14 +46,14 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
     fun onSaveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
             movieDatabaseDao.insert(movie)
-            setIsFavorite(movie)
+            isFavorite(movie)
         }
     }
 
     fun onRemoveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
             movieDatabaseDao.delete(movie)
-            setIsFavorite(movie)
+            isFavorite(movie)
         }
     }
 

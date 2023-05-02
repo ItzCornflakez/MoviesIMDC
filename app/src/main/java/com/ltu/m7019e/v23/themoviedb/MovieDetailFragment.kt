@@ -93,6 +93,17 @@ class MovieDetailFragment : Fragment() {
 
             }
         }
+        viewModel.isFavorite.observe(viewLifecycleOwner){
+        it?.let {
+            if(it){
+                binding.removeFromDatabase.visibility = View.VISIBLE
+                binding.saveToDatabase.visibility = View.GONE
+            } else {
+                binding.removeFromDatabase.visibility = View.GONE
+                binding.saveToDatabase.visibility = View.VISIBLE
+            }
+            }
+        }
 
         viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->
             status?.let {
