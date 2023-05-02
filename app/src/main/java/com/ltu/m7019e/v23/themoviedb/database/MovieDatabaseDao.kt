@@ -1,9 +1,6 @@
 package com.ltu.m7019e.v23.themoviedb.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 
 @Dao
@@ -20,5 +17,9 @@ interface MovieDatabaseDao {
 
     @Query("SELECT EXISTS(SELECT * FROM movies WHERE id = :id)")
     suspend fun isFavorite(id: Int): Boolean
+
+    //Cache movies retrived from API-call
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAll(movies: List<Movie>)
 
 }

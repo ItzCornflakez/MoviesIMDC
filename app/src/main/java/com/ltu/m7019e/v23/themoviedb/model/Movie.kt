@@ -32,6 +32,10 @@ data class Movie(
 
         @Json(name = "backdrop_path")
         @ColumnInfo(name = "backdropPath")
-        var backdropPath: String = ""
+        var backdropPath: String = "",
+
+        @ColumnInfo(name = "is_cached")
+        var isCached: Boolean = false
+
 
 ) : Parcelable
