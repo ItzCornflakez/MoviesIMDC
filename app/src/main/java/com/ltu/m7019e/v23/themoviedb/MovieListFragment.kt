@@ -9,8 +9,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModel
-import com.ltu.m7019e.v23.themoviedb.viewModel.MovieListViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieListViewModel
+import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieListViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
@@ -120,11 +120,11 @@ class MovieListFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.action_load_popular_movies -> {
                         lastSelectedMenuOptions = R.id.action_load_popular_movies
-                        viewModel.getPopularMovies()
+                        //viewModel.getPopularMovies()
                     }
                     R.id.action_load_top_rated_movies -> {
                         lastSelectedMenuOptions = R.id.action_load_top_rated_movies
-                        viewModel.getTopRatedMovies()
+                        //viewModel.getTopRatedMovies()
                     }
                     R.id.action_load_saved_movies ->{
                         lastSelectedMenuOptions = R.id.action_load_saved_movies

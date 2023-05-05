@@ -34,6 +34,9 @@ data class Movie(
         @ColumnInfo(name = "backdropPath")
         var backdropPath: String = "",
 
+        @ColumnInfo(name = "is_favorite")
+        var isFavorite: Boolean = false,
+
         @ColumnInfo(name = "is_cached")
         var isCached: Boolean = false
 

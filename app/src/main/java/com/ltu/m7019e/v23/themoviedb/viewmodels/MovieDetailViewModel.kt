@@ -1,4 +1,4 @@
-package com.ltu.m7019e.v23.themoviedb.viewModel
+package com.ltu.m7019e.v23.themoviedb.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -45,6 +45,10 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
 
     fun onSaveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
+            movie.isFavorite = true
+            if(movieDatabaseDao.isCached(movie.id)){
+                movie.isCached = true
+            }
             movieDatabaseDao.insert(movie)
             isFavorite(movie)
         }
@@ -52,7 +56,12 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
 
     fun onRemoveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
-            movieDatabaseDao.delete(movie)
+            movie.isFavorite = false
+            if(movieDatabaseDao.isCached(movie.id)){
+                movieDatabaseDao.insert(movie)
+            }else{
+                movieDatabaseDao.delete(movie)
+            }
             isFavorite(movie)
         }
     }

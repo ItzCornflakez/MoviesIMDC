@@ -9,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
-import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModel
-import com.ltu.m7019e.v23.themoviedb.viewModel.MovieDetailViewModelFactory
+import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieDetailViewModel
+import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieDetailViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL

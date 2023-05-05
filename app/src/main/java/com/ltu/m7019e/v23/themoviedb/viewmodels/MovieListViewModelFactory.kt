@@ -1,4 +1,4 @@
-package com.ltu.m7019e.v23.themoviedb.viewModel
+package com.ltu.m7019e.v23.themoviedb.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

@@ -1,11 +1,10 @@
-package com.ltu.m7019e.v23.themoviedb.viewModel
+package com.ltu.m7019e.v23.themoviedb.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.model.Review
 import com.ltu.m7019e.v23.themoviedb.model.Video
