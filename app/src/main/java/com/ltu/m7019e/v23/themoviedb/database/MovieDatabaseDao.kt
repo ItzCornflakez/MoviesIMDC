@@ -1,6 +1,7 @@
 package com.ltu.m7019e.v23.themoviedb.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 
@@ -10,29 +11,43 @@ interface MovieDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movie: Movie)
 
-    @Delete
-    suspend fun delete(movie: Movie)
-
-    @Query("SELECT * FROM movies WHERE is_favorite = TRUE ORDER BY id")
-    fun getFavoriteMovies(): LiveData<List<Movie>>
-
-    @Query("SELECT EXISTS(SELECT * FROM movies WHERE id = :id AND is_favorite = TRUE)")
-    suspend fun isFavorite(id: Int): Boolean
-
-    @Query("SELECT EXISTS(SELECT * FROM movies WHERE id = :id AND is_cached = TRUE)")
-    suspend fun isCached(id: Int): Boolean
-
     //Cache movies retrived from API-call
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<Movie>)
 
-    @Query("UPDATE movies SET is_cached = FALSE WHERE is_favorite = TRUE")
-    suspend fun removeCachedStatusFromFavoriteMovies()
+    @Delete
+    suspend fun delete(movie: Movie)
 
-    @Query("SELECT * FROM movies WHERE is_cached = TRUE")
-    fun getAllCachedMovies(): LiveData<List<Movie>>
+    @Query("DELETE FROM movies WHERE category = 'Popular' AND is_favorite = FALSE")
+    suspend fun deleteNonFavoritePopularMovies()
 
-    @Query("DELETE FROM movies WHERE is_cached = TRUE")
-    suspend fun deleteCachedMovies()
+    @Query("DELETE FROM movies WHERE category = 'TopRated' AND is_favorite = FALSE")
+    suspend fun deleteNonFavoriteTopRatedMovies()
+
+    @Query("SELECT * FROM movies WHERE category = 'Popular'")
+
+    suspend fun getPopularMovies(): List<Movie>
+
+    @Query("SELECT * FROM movies WHERE category = 'TopRated'")
+    suspend fun getTopRatedMovies(): List<Movie>
+
+    @Query("SELECT * FROM movies WHERE is_favorite = TRUE")
+    suspend fun getFavoriteMovies(): List<Movie>
+    @Query("SELECT EXISTS(SELECT * FROM movies WHERE id = :id AND is_favorite = TRUE)")
+    suspend fun isFavorite(id: Int): Boolean
+
+    @Query("UPDATE movies SET category = '' WHERE is_favorite = TRUE")
+    suspend fun unsetCategoryOnFavoriteMovies()
+
+
+
+
+
+
+
+
+
+
+
 
 }

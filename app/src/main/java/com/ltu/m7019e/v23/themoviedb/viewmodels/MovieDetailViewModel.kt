@@ -46,9 +46,6 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
     fun onSaveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
             movie.isFavorite = true
-            if(movieDatabaseDao.isCached(movie.id)){
-                movie.isCached = true
-            }
             movieDatabaseDao.insert(movie)
             isFavorite(movie)
         }
@@ -57,11 +54,7 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
     fun onRemoveMovieButtonClicked(movie: Movie){
         viewModelScope.launch {
             movie.isFavorite = false
-            if(movieDatabaseDao.isCached(movie.id)){
-                movieDatabaseDao.insert(movie)
-            }else{
-                movieDatabaseDao.delete(movie)
-            }
+            movieDatabaseDao.delete(movie)
             isFavorite(movie)
         }
     }

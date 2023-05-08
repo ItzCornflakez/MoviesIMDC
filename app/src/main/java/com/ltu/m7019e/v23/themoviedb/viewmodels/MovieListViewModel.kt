@@ -18,16 +18,16 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
 
     private val movieRepository = MovieRepository(movieDatabaseDao)
 
-    private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
+    private val _dataFetchStatus = movieRepository.dataFetchStatus
     val dataFetchStatus: LiveData<DataFetchStatus>
         get() {
             return _dataFetchStatus
         }
 
-    private val _movieList = movieRepository.movies
+    val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>>
         get() {
-            return _movieList
+            return movieRepository.movieList
         }
 
     private val _navigateToMovieDetail = MutableLiveData<Movie?>()
@@ -37,62 +37,28 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
         }
 
     init {
-        //refreshDataFromRepository()
-        _dataFetchStatus.value = DataFetchStatus.LOADING
+        refreshPopularMovies()
+        movieRepository.setDataFetchStatus(DataFetchStatus.LOADING)
     }
 
-    /*
-    fun getPopularMovies(){
+
+    fun refreshPopularMovies(){
         viewModelScope.launch {
-            try {
-                val movieResponse: MovieResponse = TMDBApi.movieListRetrofitService.getPopularMovies()
-                _movieList.value = movieResponse.results
-                _dataFetchStatus.value = DataFetchStatus.DONE
-            } catch (e : java.lang.Exception) {
-                _dataFetchStatus.value = DataFetchStatus.ERROR
-                _movieList.value = arrayListOf()
-
-            }
-
+            movieRepository.refreshPopularMovies()
         }
     }
 
-    fun getTopRatedMovies(){
+    fun refreshTopRatedMovies(){
         viewModelScope.launch {
-            try {
-                val movieResponse: MovieResponse = TMDBApi.movieListRetrofitService.getTopRatedMovies()
-                _movieList.value = movieResponse.results
-                _dataFetchStatus.value = DataFetchStatus.DONE
-            } catch (e : java.lang.Exception) {
-                _dataFetchStatus.value = DataFetchStatus.ERROR
-                _movieList.value = arrayListOf()
-
-            }
-
+            movieRepository.refreshTopRatedMovies()
         }
     }
 
-     */
-
-    private fun refreshDataFromRepository() {
-        viewModelScope.launch {
-            try {
-                movieRepository.refreshMovies()
-                _dataFetchStatus.value = DataFetchStatus.DONE
-            } catch (e : java.lang.Exception) {
-                _dataFetchStatus.value = DataFetchStatus.ERROR
-                //_movieList.value = arrayListOf()
-            }
-        }
-    }
-
-
-    fun getSavedMovies(){
-        viewModelScope.launch {
+    fun getFavoriteMovies(){
+        viewModelScope.launch{
             movieRepository.getFavoriteMovies()
         }
     }
-
 
     fun onMovieListItemClicked(movie: Movie) {
         _navigateToMovieDetail.value = movie

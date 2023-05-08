@@ -1,7 +1,10 @@
 package com.ltu.m7019e.v23.themoviedb
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.getSystemService
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -16,6 +19,7 @@ import com.ltu.m7019e.v23.themoviedb.adapter.MovieListClickListener
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieListBinding
+import com.ltu.m7019e.v23.themoviedb.network.ConnectionListener
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 
 /**
@@ -27,6 +31,8 @@ class MovieListFragment : Fragment() {
     private lateinit var viewModelFactory: MovieListViewModelFactory
 
     private lateinit var movieDatabaseDao: MovieDatabaseDao
+
+    private lateinit var connectionListener: ConnectionListener
 
     private var _binding: FragmentMovieListBinding? = null;
     private val binding get() = _binding!!
@@ -74,6 +80,18 @@ class MovieListFragment : Fragment() {
 
         }
 
+        connectionListener = ConnectionListener(application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        connectionListener.observe(viewLifecycleOwner){ isConnected -> isConnected
+            if (isConnected){
+                if (lastSelectedMenuOptions == R.id.action_load_popular_movies){
+                    viewModel.refreshPopularMovies()
+                }
+                if(lastSelectedMenuOptions == R.id.action_load_top_rated_movies){
+                    viewModel.refreshTopRatedMovies()
+                }
+            }
+        }
+
         viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->
             status?.let {
                 when (status) {
@@ -88,9 +106,7 @@ class MovieListFragment : Fragment() {
                     DataFetchStatus.DONE -> {
                         binding.statusImage.visibility = View.VISIBLE
                         binding.statusImage.setImageResource(R.drawable.loading_img)
-
                     }
-
                 }
             }
         }
@@ -120,15 +136,15 @@ class MovieListFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.action_load_popular_movies -> {
                         lastSelectedMenuOptions = R.id.action_load_popular_movies
-                        //viewModel.getPopularMovies()
+                        viewModel.refreshPopularMovies()
                     }
                     R.id.action_load_top_rated_movies -> {
                         lastSelectedMenuOptions = R.id.action_load_top_rated_movies
-                        //viewModel.getTopRatedMovies()
+                        viewModel.refreshTopRatedMovies()
                     }
                     R.id.action_load_saved_movies ->{
                         lastSelectedMenuOptions = R.id.action_load_saved_movies
-                        viewModel.getSavedMovies()
+                        viewModel.getFavoriteMovies()
                     }
                 }
                 return true
@@ -139,9 +155,10 @@ class MovieListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         when(lastSelectedMenuOptions){
             R.id.action_load_saved_movies -> {
-                viewModel.getSavedMovies()
+                viewModel.getFavoriteMovies()
             }
         }
 
