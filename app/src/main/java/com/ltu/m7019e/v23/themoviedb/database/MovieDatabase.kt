@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
+import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 
-@Database(entities = [Movie::class], version = 15, exportSchema = false)
+@Database(entities = [Movie::class, MovieDetail::class], version = 19, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
     abstract val movieDatabaseDao: MovieDatabaseDao
 

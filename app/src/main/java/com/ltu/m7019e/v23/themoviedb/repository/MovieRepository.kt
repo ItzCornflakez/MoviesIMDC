@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.model.Movie
+import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
+import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
 import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +27,11 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
             return _dataFetchStatus
         }
 
-
     suspend fun refreshPopularMovies(){
         withContext(Dispatchers.IO) {
             try {
                 val movies = TMDBApi.movieListRetrofitService.getPopularMovies().results
+                var movieDetailResponses = mutableListOf<MovieDetail>()
                 movies.forEach { movie ->
                     movie
                     val isFavorite = movieDatabaseDao.isFavorite(movie.id)
@@ -37,10 +39,22 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
                         movie.isFavorite = true
                     }
                     movie.category = "Popular"
+
+                    //Get Movie Details
+                    val movieDetail = TMDBApi.movieListRetrofitService.getMovieDetails(movie.id)
+                    var tempStr = ""
+                    movieDetail.genres.forEach{
+                        tempStr += it.name + ":"
+                    }
+                    movieDetailResponses.add(MovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
                 }
+
                 movieDatabaseDao.insertAll(movies)
+                movieDatabaseDao.deleteMovieDetailsForNonFavoriteMovies()
+                movieDatabaseDao.insertAllMovieDetail(movieDetailResponses)
                 movieDatabaseDao.unsetCategoryOnFavoriteMovies()
                 movieDatabaseDao.deleteNonFavoriteTopRatedMovies()
+
                 _movieList.postValue(movies)
                 _dataFetchStatus.postValue(DataFetchStatus.DONE)
             } catch (e: java.lang.Exception) {
@@ -59,16 +73,29 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
         withContext(Dispatchers.IO){
             try{
                 val movies = TMDBApi.movieListRetrofitService.getTopRatedMovies().results
+                var movieDetailResponses = mutableListOf<MovieDetail>()
                 movies.forEach{movie -> movie
                     val isFavorite = movieDatabaseDao.isFavorite(movie.id)
                     if(isFavorite){
                         movie.isFavorite = true
                     }
                     movie.category = "TopRated"
+
+                    //Get Movie Details
+                    val movieDetail = TMDBApi.movieListRetrofitService.getMovieDetails(movie.id)
+                    var tempStr = ""
+                    movieDetail.genres.forEach{
+                        tempStr += it.name + ":"
+                    }
+                    movieDetailResponses.add(MovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
                 }
+
                 movieDatabaseDao.insertAll(movies)
+                movieDatabaseDao.deleteMovieDetailsForNonFavoriteMovies()
+                movieDatabaseDao.insertAllMovieDetail(movieDetailResponses)
                 movieDatabaseDao.unsetCategoryOnFavoriteMovies()
                 movieDatabaseDao.deleteNonFavoritePopularMovies()
+
                 _movieList.postValue(movies)
                 _dataFetchStatus.postValue(DataFetchStatus.DONE)
             }catch (e : java.lang.Exception){
@@ -86,6 +113,7 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
 
     suspend fun getFavoriteMovies(){
         withContext(Dispatchers.IO){
+            movieDatabaseDao.deleteMovieDetailsForNonFavoriteMovies()
             val movies = movieDatabaseDao.getFavoriteMovies()
             _movieList.postValue(movies)
             _dataFetchStatus.postValue(DataFetchStatus.DONE) // Don't let error image show when showing favorite movies
