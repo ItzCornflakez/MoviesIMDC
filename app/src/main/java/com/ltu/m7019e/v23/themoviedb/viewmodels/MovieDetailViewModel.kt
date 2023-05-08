@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
+import com.ltu.m7019e.v23.themoviedb.model.DatabaseMovieDetail
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
 import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
@@ -26,8 +27,8 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
             return _isFavorite
         }
 
-    private val _movieDetail = MutableLiveData<MovieDetailsResponse?>()
-    val movieDetail: LiveData<MovieDetailsResponse?>
+    private val _movieDetail = MutableLiveData<DatabaseMovieDetail>()
+    val movieDetail: LiveData<DatabaseMovieDetail>
         get() {
             return _movieDetail
         }
@@ -62,18 +63,8 @@ class MovieDetailViewModel(private val movieDatabaseDao: MovieDatabaseDao, appli
 
    fun getMovieDetail(movieId: Int){
        viewModelScope.launch {
-           try {
-               val movieDetail: MovieDetailsResponse = TMDBApi.movieListRetrofitService.getMovieDetails(movieId)
-               _movieDetail.value = movieDetail
-               _dataFetchStatus.value = DataFetchStatus.DONE
-           } catch (e : Exception) {
-               _dataFetchStatus.value = DataFetchStatus.ERROR
-               _movieDetail.value = null
-
-           }
-
+           _movieDetail.value = movieDatabaseDao.getMovieDetail(movieId)
        }
-
     }
 
 

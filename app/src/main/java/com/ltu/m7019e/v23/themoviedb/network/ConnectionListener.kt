@@ -35,6 +35,4 @@ LiveData<Boolean>(){
         super.onInactive()
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
-
-
 }

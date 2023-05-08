@@ -2,13 +2,10 @@ package com.ltu.m7019e.v23.themoviedb.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ltu.m7019e.v23.themoviedb.database.MovieDatabase
 import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
+import com.ltu.m7019e.v23.themoviedb.model.DatabaseMovieDetail
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
-import com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse
-import com.ltu.m7019e.v23.themoviedb.network.MovieResponse
 import com.ltu.m7019e.v23.themoviedb.network.TMDBApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +28,7 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
         withContext(Dispatchers.IO) {
             try {
                 val movies = TMDBApi.movieListRetrofitService.getPopularMovies().results
-                var movieDetailResponses = mutableListOf<MovieDetail>()
+                var movieDetailResponses = mutableListOf<DatabaseMovieDetail>()
                 movies.forEach { movie ->
                     movie
                     val isFavorite = movieDatabaseDao.isFavorite(movie.id)
@@ -46,7 +43,7 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
                     movieDetail.genres.forEach{
                         tempStr += it.name + ":"
                     }
-                    movieDetailResponses.add(MovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
+                    movieDetailResponses.add(DatabaseMovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
                 }
 
                 movieDatabaseDao.insertAll(movies)
@@ -73,7 +70,7 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
         withContext(Dispatchers.IO){
             try{
                 val movies = TMDBApi.movieListRetrofitService.getTopRatedMovies().results
-                var movieDetailResponses = mutableListOf<MovieDetail>()
+                var movieDetailResponses = mutableListOf<DatabaseMovieDetail>()
                 movies.forEach{movie -> movie
                     val isFavorite = movieDatabaseDao.isFavorite(movie.id)
                     if(isFavorite){
@@ -87,7 +84,8 @@ class MovieRepository(private val movieDatabaseDao: MovieDatabaseDao) {
                     movieDetail.genres.forEach{
                         tempStr += it.name + ":"
                     }
-                    movieDetailResponses.add(MovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
+
+                    movieDetailResponses.add(DatabaseMovieDetail(movieDetail.id,movieDetail.homepage, movieDetail.imdb_id, tempStr, movieDetail.backdropPath))
                 }
 
                 movieDatabaseDao.insertAll(movies)

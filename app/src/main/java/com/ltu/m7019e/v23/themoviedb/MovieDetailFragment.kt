@@ -14,6 +14,7 @@ import com.ltu.m7019e.v23.themoviedb.database.MovieDatabaseDao
 import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieDetailViewModel
 import com.ltu.m7019e.v23.themoviedb.viewmodels.MovieDetailViewModelFactory
 import com.ltu.m7019e.v23.themoviedb.databinding.FragmentMovieDetailBinding
+import com.ltu.m7019e.v23.themoviedb.model.DatabaseMovieDetail
 import com.ltu.m7019e.v23.themoviedb.model.Movie
 import com.ltu.m7019e.v23.themoviedb.utils.Constants.IMDB_BASE_URL
 import com.ltu.m7019e.v23.themoviedb.network.DataFetchStatus
@@ -30,7 +31,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     private lateinit var movie: Movie
-    private lateinit var movieDetail: MovieDetailsResponse
+    private lateinit var movieDetail: DatabaseMovieDetail
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var viewModelFactory: MovieDetailViewModelFactory
 
@@ -64,17 +65,9 @@ class MovieDetailFragment : Fragment() {
                 movieDetail = it
                 var genreText = "Genre: "
                 var isFirst = true
-                movieDetail.genres.forEach {
-                    it?.let {
-                        if(isFirst){
-                            genreText += it.name
-                            isFirst = false
-                        } else {
-                            genreText += ", " + it.name
-                        }
-                    }
-                }
+                genreText += it.genres.split(":")
                 binding.genreText.setText(genreText)
+
 
 
                 //Create explicit intent with an url

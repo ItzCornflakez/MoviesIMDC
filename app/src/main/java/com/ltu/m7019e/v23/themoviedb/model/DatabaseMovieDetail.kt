@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "movieDetail")
-data class MovieDetail (
+data class DatabaseMovieDetail (
 
     @PrimaryKey()
     var id: Int = 0,

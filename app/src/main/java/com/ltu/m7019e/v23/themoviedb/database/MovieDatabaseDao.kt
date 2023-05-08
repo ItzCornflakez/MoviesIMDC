@@ -1,10 +1,9 @@
 package com.ltu.m7019e.v23.themoviedb.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.ltu.m7019e.v23.themoviedb.model.Movie
-import com.ltu.m7019e.v23.themoviedb.model.MovieDetail
+import com.ltu.m7019e.v23.themoviedb.model.DatabaseMovieDetail
 
 @Dao
 interface MovieDatabaseDao {
@@ -41,12 +40,13 @@ interface MovieDatabaseDao {
     suspend fun unsetCategoryOnFavoriteMovies()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllMovieDetail(movies: List<MovieDetail>)
+    suspend fun insertAllMovieDetail(movies: List<DatabaseMovieDetail>)
 
     @Query("DELETE FROM movieDetail WHERE id IN (SELECT id FROM movies WHERE is_favorite = FALSE)")
     suspend fun deleteMovieDetailsForNonFavoriteMovies()
 
-
+    @Query("SELECT * FROM movieDetail WHERE id = :id")
+    suspend fun getMovieDetail(id: Int) : DatabaseMovieDetail
 
 
 }

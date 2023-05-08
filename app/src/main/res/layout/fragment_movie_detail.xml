@@ -14,7 +14,7 @@
             type="com.ltu.m7019e.v23.themoviedb.model.Movie" />
         <variable
             name="movieDetail"
-            type="com.ltu.m7019e.v23.themoviedb.network.MovieDetailsResponse" />
+            type="com.ltu.m7019e.v23.themoviedb.model.DatabaseMovieDetail" />
         <variable
             name="viewModel"
             type="com.ltu.m7019e.v23.themoviedb.viewmodels.MovieDetailViewModel" />
